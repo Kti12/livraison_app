@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:livreur_app/screen/splashscreen.dart';
+import 'package:livreur_app/screen/login.dart';
+import 'package:livreur_app/widgets/inscription.dart';
+import 'package:livreur_app/widgets/ligne.dart';
+import 'package:livreur_app/widgets/pagefournisseur.dart';
+import 'package:livreur_app/widgets/profile_user/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +15,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Login(),
+      routes: {
+        'screen/login': (context) => Login(),
+        'widgets/inscription': (context) => const Inscription(),
+        'widgets/pagefournisseur': (context) => const PageFournisseur(),
+        'widgets/profil_user/profile': (context) => const Profil(),
+        'widgets/profil_user/ligne': (context) => const RoundButton(),
+        // Autres routes
+      },
     );
   }
 }

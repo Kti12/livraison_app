@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:livreur_app/screen/homescreen.dart';
+import 'package:get/get.dart';
+import 'package:livreur_app/screen/login.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -15,11 +18,14 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => const HomeScreen(),
-      ));
+    Timer(const Duration(seconds: 2), () {
+      Get.to(Login());
     });
+    /* Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) => const Login(),
+      ));
+    });  */
   }
 
   @override
@@ -44,11 +50,6 @@ class _SplashScreenState extends State<SplashScreen>
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.edit,
-              size: 80,
-              color: Colors.white,
-            ),
             SizedBox(height: 20),
             Text(
               'AISA livreur',

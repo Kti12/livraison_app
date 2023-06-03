@@ -2,7 +2,7 @@
     <application
         android:label="livreur_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo_aisa">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -17,7 +17,7 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
+              android:resource="@mipmap/logo_aisa"
               />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,5 +29,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            
     </application>
 </manifest>
