@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:livreur_app/screen/login.dart';
-import 'package:livreur_app/widgets/inscription.dart';
+import 'package:livreur_app/widgets/inscription/inscription.dart';
 import 'package:livreur_app/widgets/ligne.dart';
 import 'package:livreur_app/widgets/pagefournisseur.dart';
 import 'package:livreur_app/widgets/profile_user/profile.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       home: Login(),
       routes: {
         'screen/login': (context) => Login(),
-        'widgets/inscription': (context) => const Inscription(),
+        
         'widgets/pagefournisseur': (context) => const PageFournisseur(),
         'widgets/profil_user/profile': (context) => const Profil(),
         'widgets/profil_user/ligne': (context) => const RoundButton(),

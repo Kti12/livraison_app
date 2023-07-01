@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:livreur_app/utile/global.colors.dart';
+import 'package:livreur_app/widgets/balance.dart';
+import 'package:livreur_app/widgets/historique.dart';
 import 'package:livreur_app/widgets/profile_user/components/body_screen.dart';
 
 
@@ -30,13 +32,21 @@ class Body extends StatelessWidget {
       ProfilMenu(
         text: 'Mes livraisons',
         icon: 'assets/fonts/give.svg',
-        press: () {},
+        press: () {Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HistoryPage()),
+            );},
         hasImage: true,
       ),
       ProfilMenu(
         text: 'Mes fonds',
         icon: 'assets/fonts/money.svg',
-        press: () {},
+        press: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Balance()),
+            );
+        },
         hasImage: true,
       ),
       ProfilMenu(
@@ -45,12 +55,7 @@ class Body extends StatelessWidget {
         press: () {},
         hasImage: true,
       ),
-      ProfilMenu(
-        text: 'Paramètres',
-        icon: 'assets/fonts/setting.svg',
-        press: () {}, 
-        hasImage: true,
-      ),
+      
       ProfilMenu(
         text: 'Deconnexion',
         icon: 'assets/fonts/log_out.svg',

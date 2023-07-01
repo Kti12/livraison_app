@@ -9,12 +9,10 @@ class ProfilePic extends StatelessWidget {
       width: 115,
       child: Stack(
         fit: StackFit.expand,
-        
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/fonts/tete_soro.png"),
+            backgroundImage: AssetImage("assets/fonts/soro.jpg"),
           ),
-          
         ],
       ),
     );

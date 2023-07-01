@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use, prefer_collection_literals
-
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:livreur_app/utile/global.colors.dart';
 import 'package:livreur_app/widgets/ligne.dart';
 import 'package:livreur_app/widgets/profile_user/profile.dart';
@@ -32,10 +32,11 @@ class PageFournisseurState extends State<PageFournisseur> {
           ),
           actions: [
             IconButton(
-              icon: SvgPicture.asset(
-                'assets/fonts/profile.svg',
-                color: Colors.white,
-              ),
+              // icon: SvgPicture.asset(
+              //   'assets/fonts/profile.svg',
+              //   color: Colors.white,
+              // ),
+              icon: const Icon(FluentIcons.settings_32_regular),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -62,7 +63,7 @@ class PageFournisseurState extends State<PageFournisseur> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  const RoundButton()));
+                                builder: (context) => const RoundButton()));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: GlobalColors.mainColor),

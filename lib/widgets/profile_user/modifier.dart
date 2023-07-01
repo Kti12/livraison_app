@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:livreur_app/utile/global.colors.dart';
 import 'package:livreur_app/widgets/pagefournisseur.dart';
@@ -71,7 +72,7 @@ class ModifierState extends State<Modifier> {
                       image: const DecorationImage(
                         fit: BoxFit.cover,
                         image: AssetImage(
-                          "assets/fonts/tete_soro.png",
+                          "assets/fonts/soro.jpg",
                         ),
                       )),
                 ),
@@ -93,7 +94,7 @@ class ModifierState extends State<Modifier> {
                         image: AssetImage("assets/fonts/camera.png"),
                         color: Colors.white,
                       ),
-                    )) 
+                    ))
               ])),
               const SizedBox(
                 height: 35,
@@ -106,45 +107,40 @@ class ModifierState extends State<Modifier> {
               builTextField("Mot de passe", "020305", true),
               builTextField("Confirmation", "020305", true),
               builTextField("Immatriculation_vehicule", "070560FG", false),
-
               const SizedBox(
                 height: 15,
               ),
               Row(
                 children: [
                   Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const PageFournisseur()),
-                                  );
-                                  
-                                },
-                                
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF1C9521),
-                                  
-                                ),
-                                child: const Text(
-                                    'Annuler',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              
-                              /* decoration: BoxDecoration(
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PageFournisseur()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1C9521),
+                        ),
+                        child: const Text(
+                          'Annuler',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+
+                      /* decoration: BoxDecoration(
                                 
                                 borderRadius: BorderRadius.circular(6),
                                 boxShadow: [
@@ -154,29 +150,27 @@ class ModifierState extends State<Modifier> {
                                   ),
                                 ],
                               ), */
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Profil()),
-                                  );
-                                  
-                                },
-                                
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF1C9521),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                ),
-                                child: const Text(
-                                    'Modifier',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                              ),
-                            ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profil()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1C9521),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
                           ),
+                        ),
+                        child: const Text(
+                          'Modifier',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               )
             ],
@@ -191,7 +185,7 @@ class ModifierState extends State<Modifier> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
-        obscureText: isPasswordTextFiel ? showPassword: false,
+        obscureText: isPasswordTextFiel ? showPassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextFiel
                 ? IconButton(
@@ -201,7 +195,7 @@ class ModifierState extends State<Modifier> {
                       });
                     },
                     icon: const Icon(
-                      Icons.remove_red_eye,
+                      FluentIcons.eye_off_20_regular,
                     ))
                 : null,
             contentPadding: const EdgeInsets.only(bottom: 3),

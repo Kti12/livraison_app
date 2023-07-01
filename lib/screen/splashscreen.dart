@@ -51,14 +51,18 @@ class _SplashScreenState extends State<SplashScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 20),
-            Text(
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: AssetImage("assets/Images/logo_aisa.png"),
+            ),
+            /* Text(
               'AISA livreur',
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
                 fontSize: 32,
               ),
-            )
+            ) */
           ],
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livreur_app/widgets/button.global.dart';
-import 'package:livreur_app/widgets/inscription.dart';
+import 'package:livreur_app/widgets/inscription/inscription.dart';
 import 'package:livreur_app/widgets/social.login.dart';
 import 'package:livreur_app/widgets/text.form.global.dart';
 
@@ -49,12 +49,13 @@ class Login extends StatelessWidget {
                   text: 'Mot de passe',
                   obscure: true,
                   textInputType: TextInputType.text),
+                  
               const Padding(
                 padding: EdgeInsets.fromLTRB(20, 20, 40, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Mot de passe oublié',
+                    Text('Mot de passe oublié?',
                         style: TextStyle(color: Color(0xFF1C9521))),
                   ],
                 ),
@@ -81,7 +82,7 @@ class Login extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Inscription()),
+                  MaterialPageRoute(builder: (context) =>  LivreurInscriptionPage1()),
                 );
               },
               child: const Text('créer-un'),
@@ -92,7 +93,6 @@ class Login extends StatelessWidget {
     );
   }
 
-  void newMethod() {
-    // code à exécuter lorsque le bouton est appuyé
-  }
+  
+
 }
