@@ -4,9 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:livreur_app/screen/login.dart';
 import 'package:livreur_app/utile/global.colors.dart';
 import 'package:livreur_app/widgets/inscription/page2.dart';
+import 'package:crypto/crypto.dart';
 
 class LivreurInscriptionPage1 extends StatefulWidget {
   @override
@@ -55,13 +57,98 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
     });
   }
 
+  void _selectDate() async {
+  DateTime? pickedDate = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1990),
+    lastDate: DateTime(2025),
+  );
+
+  if (pickedDate != null) {
+    setState(() {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      dateController.text = formattedDate;
+    });
+  }
+}
+
   Future<void> fetchLivreurs() async {
+    try{
+      var baseUrl2 = 'http://192.168.1.138:8000/api/users/register';
+
+    // Créer une nouvelle demande de type Multipart
+    var request = http.MultipartRequest('POST', Uri.parse(baseUrl2));
+
+    // Ajouter les champs de formulaire à la demande
+    request.fields['NomLivreur'] = _nomController.text;
+    request.fields['PrenomLivreur'] = _prenomController.text;
+    request.fields['NumeroLivreur'] = _telephoneController.text;
+    request.fields['DateNaissanceLivreur'] = dateController.text;
+    /* var hashedPassword = sha256.convert(utf8.encode(_MDPController.text)).toString(); */
+    request.fields['MDPLivreur'] = _MDPController.text;
+    request.fields['ConfirmerMDP'] = _ConfirmerController.text;
+    request.fields['MTNMoneyLivreur'] = _MTNMoneyController.text;
+    request.fields['TypeEnginLivreur'] = _enginController.text;
+    request.fields['PlaqueImmatriculation'] = _immatriculationController.text;
+
+ if (PhotoLivreur == null || CNILivreur == null || CasierJudiciaireLivreur == null || PermisLivreur == null) {
+    print('Veuillez sélectionner toutes les images obligatoires.');
+    return; // Arrêter l'exécution de la fonction s'il manque des images
+  }
+    // Ajouter l'image à la demande (si l'utilisateur a choisi une image)
+    if (PhotoLivreur != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'PhotoLivreur',
+        PhotoLivreur!.path,
+        
+      ));
+    }
+    if (CNILivreur != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'CNILivreur',
+        CNILivreur!.path,
+        
+      ));
+    }
+    if (CasierJudiciaireLivreur != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'CasierJudiciaireLivreur',
+        CasierJudiciaireLivreur!.path,
+       
+      ));
+    }
+    if (PermisLivreur != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'PermisLivreur',
+        PermisLivreur!.path,
+        
+      ));
+    } 
+    
+    // Envoyer la demande et attendre la réponse
+    var response = await request.send();
+
+    // Traiter la réponse
+    if (response.statusCode == 200) {
+      print('Le livreur a été créé avec succès.');
+      print(await response.stream.bytesToString());
+    } else {
+      print(
+          'Échec de la création du livreur. Statut de la réponse : ${response.statusCode}');
+    }
+    }catch (e) {
+    print('Erreur lors de l\'envoi de la demande : $e');
+  }
+    
+  }
+  /* Future<void> fetchLivreurs() async {
     var baseUrl2 = 'http://192.168.10.25:8000/api/livreurs';
 
-    final response = await http.post(Uri.parse(baseUrl2),
+    var request = http.MultipartRequest('POST', Uri.parse(baseUrl2));
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-        },
+        };
         body: jsonEncode({
           'NomLivreur': _nomController.text,
           'PrénomLivreur': _prenomController.text,
@@ -72,10 +159,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
           'MTNMoneyLivreur': _MTNMoneyController.text,
           'TypeEnginLivreur': _enginController.text,
           'PlaqueImmatriculation': _immatriculationController.text,
-          'PhotoLivreur': '',
-          'CNILivreur': '',
-          'CasierJudiciaireLivreur': '',
-          'PermisLivreur': '',
+          
         }));
 
     
@@ -87,7 +171,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
         'Échec de la création du livreur. Statut de la réponse : ${response.statusCode}');
       }
    
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -146,25 +230,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
                     }
                     return null;
                   },
-                  onTap: () async {
-                  var pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1990),
-                      lastDate: DateTime(2015),
-                    
-                  );
-
-                  setState(() {
-                    if (pickedDate != null) {
-                      var date = pickedDate.toString().replaceAll("(", "");
-                      date = date.toString().replaceAll(")", "");
-                      date = date.toString().replaceAll("DateTime", "");
-                      dateController.text = date;
-                    }
-                  });
-                },
-                  
+                  onTap: _selectDate,
                 ),
                 TextFormField(
                   controller: _MDPController,

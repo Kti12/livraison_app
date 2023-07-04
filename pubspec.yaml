@@ -52,6 +52,8 @@ dependencies:
   fluentui_system_icons: ^1.1.202
   geolocator: ^9.0.2
   http: ^0.13.4
+  crypto: ^3.0.3
+  intl: ^0.18.1
   
   
   
@@ -71,6 +73,7 @@ flutter:
   assets:
     - assets/Images/
     - assets/fonts/
+  uses-material-design: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
