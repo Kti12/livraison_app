@@ -4,7 +4,6 @@ import 'package:livreur_app/widgets/inscription/inscription.dart';
 import 'package:livreur_app/widgets/ligne.dart';
 import 'package:livreur_app/widgets/pagefournisseur.dart';
 import 'package:livreur_app/widgets/profile_user/profile.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());

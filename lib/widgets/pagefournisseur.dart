@@ -1,7 +1,11 @@
 // ignore_for_file: deprecated_member_use, prefer_collection_literals
+import 'dart:convert';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:livreur_app/utile/global.colors.dart';
 import 'package:livreur_app/widgets/ligne.dart';
 import 'package:livreur_app/widgets/profile_user/profile.dart';
@@ -15,6 +19,40 @@ class PageFournisseur extends StatefulWidget {
 }
 
 class PageFournisseurState extends State<PageFournisseur> {
+  Future<void> _getCurrentLocation() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    var baseUrl = 'http://192.168.10.2:8000/api/set-postionLivreur';
+    var response = await http.post(
+      Uri.parse(baseUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        'latitude': position.latitude,
+        'longitude': position.longitude,
+        'user_id': 2,
+      }),
+    );
+    // print(response.body);
+    var data = jsonDecode(response.body);
+    Fluttertoast.showToast(
+      msg: data['message'],
+      toastLength: Toast
+          .LENGTH_SHORT, // Duration for which the toast should be displayed
+      gravity:
+          ToastGravity.BOTTOM, // Position of the toast message on the screen
+      timeInSecForIosWeb:
+          1, // Specific to iOS/Web, the time for which the toast should be displayed
+      backgroundColor: Colors.black54, // Background color of the toast
+      textColor: Colors.white, // Text color of the toast
+      fontSize: 16.0, // Font size of the toast message
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // return Container(child: Map());
@@ -64,6 +102,7 @@ class PageFournisseurState extends State<PageFournisseur> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const RoundButton()));
+                        _getCurrentLocation();
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: GlobalColors.mainColor),

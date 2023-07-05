@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,9 +27,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
   final TextEditingController _MDPController = TextEditingController();
   final TextEditingController _ConfirmerController = TextEditingController();
   final TextEditingController _MTNMoneyController = TextEditingController();
-  final TextEditingController _enginController = TextEditingController();
-  final TextEditingController _immatriculationController =
-      TextEditingController();
+  
 
   File? PhotoLivreur;
   File? CNILivreur;
@@ -73,10 +73,13 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
   }
 }
 
+
+
+
   Future<void> fetchLivreurs() async {
     try{
-      var baseUrl2 = 'http://192.168.1.138:8000/api/users/register';
-
+      var baseUrl2 = 'http://192.168.10.2:8000/api/users/register';
+      print(PhotoLivreur);
     // Créer une nouvelle demande de type Multipart
     var request = http.MultipartRequest('POST', Uri.parse(baseUrl2));
 
@@ -89,8 +92,11 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
     request.fields['MDPLivreur'] = _MDPController.text;
     request.fields['ConfirmerMDP'] = _ConfirmerController.text;
     request.fields['MTNMoneyLivreur'] = _MTNMoneyController.text;
-    request.fields['TypeEnginLivreur'] = _enginController.text;
-    request.fields['PlaqueImmatriculation'] = _immatriculationController.text;
+    
+    request.fields['PhotoLivreur'] = PhotoLivreur.toString();
+    request.fields['CNILivreur'] = CNILivreur.toString();
+    request.fields['CasierJudiciaireLivreur'] = CasierJudiciaireLivreur.toString();
+    request.fields['PermisLivreur'] = PermisLivreur.toString();
 
  if (PhotoLivreur == null || CNILivreur == null || CasierJudiciaireLivreur == null || PermisLivreur == null) {
     print('Veuillez sélectionner toutes les images obligatoires.');
@@ -101,6 +107,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
       request.files.add(await http.MultipartFile.fromPath(
         'PhotoLivreur',
         PhotoLivreur!.path,
+        
         
       ));
     }
@@ -128,6 +135,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
     
     // Envoyer la demande et attendre la réponse
     var response = await request.send();
+    
 
     // Traiter la réponse
     if (response.statusCode == 200) {
@@ -266,29 +274,7 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
                     return null;
                   },
                 ),
-                TextFormField(
-                  controller: _enginController,
-                  decoration: InputDecoration(labelText: 'Type d\'engin'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Veuillez sélectionner le type d\'engin';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _immatriculationController,
-                  decoration:
-                      InputDecoration(labelText: 'Immatriculation du véhicule'),
-                  validator: (value) {
-                    if ((_enginController.text == 'Vélo' ||
-                            _enginController.text == 'Moto') &&
-                        (value == null || value.isEmpty)) {
-                      return 'Veuillez saisir l\'immatriculation du véhicule';
-                    }
-                    return null;
-                  },
-                ),
+               
                 SizedBox(height: 16.0),
                 Text('Sélectionnez les images :'),
                 ElevatedButton(
@@ -319,12 +305,13 @@ class _LivreurInscriptionPage1State extends State<LivreurInscriptionPage1> {
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: GlobalColors.mainColor),
+                      backgroundColor: GlobalColors.mainColor,
+                      padding: EdgeInsets.all(10)),
                   onPressed: () {
-                    /* Navigator.push(
+                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Login()),
-                    ); */
+                    ); 
                     fetchLivreurs();
                   },
                   child: Text('S\'inscrire'),
